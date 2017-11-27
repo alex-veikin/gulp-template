@@ -65,7 +65,7 @@ gulp.task('clean', function() {
 
 gulp.task('img', function() {
 	return gulp.src('./app/img/**/*') // Берем все изображения из app
-		.pipe(imagemin([   Сжимаем их с наилучшими настройками с учетом кеширования
+		.pipe(imagemin([   //Сжимаем их с наилучшими настройками с учетом кеширования
 			imagemin.gifsicle({interlaced: true}),
 			imagemin.jpegtran({progressive: true}),
 			imagemin.optipng({optimizationLevel: 5}),
@@ -103,9 +103,9 @@ gulp.task('build', ['clean', 'img', 'js-libs', 'sass'], function() {
 	
 });
 
-gulp.task('clear', function (callback) {
+gulp.task('clear', function () {
 	return cache.clearAll();
-})
+});
 
 gulp.task('default', ['watch']);
 
