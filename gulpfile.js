@@ -29,7 +29,7 @@ gulp.task('sass', function(){ // Создаем таск Sass
 gulp.task('browser-sync', function() { // Создаем таск browser-sync
 	browserSync.init({ // Выполняем browserSync
 		server: './app', // Указываем директорию с файлами проекта - app
-        // proxy: "otdam.dev", // Или указываем домен, если сайт на PHP(openserver, xampp и т.д.)
+        // proxy: "my-site.dev", // Или указываем домен, если сайт на PHP(openserver, xampp и т.д.)
 		notify: false // Отключаем уведомления
 	});
 });
@@ -60,7 +60,7 @@ gulp.task('watch', ['browser-sync', 'css-libs', 'js-libs'], function() { //
 });
 
 gulp.task('clean', function() {
-	return del.sync('./release'); // Удаляем папку dist перед сборкой
+	return del.sync('./dist'); // Удаляем папку dist перед сборкой
 });
 
 gulp.task('img', function() {
@@ -77,29 +77,29 @@ gulp.task('img', function() {
 			})
 		]))
 		.on('error', console.log)
-		.pipe(gulp.dest('release/img')); // Выгружаем на продакшен
+		.pipe(gulp.dest('dist/img')); // Выгружаем на продакшен
 });
 
 gulp.task('build', ['clean', 'img', 'js-libs', 'sass'], function() {
 	gulp.src('./app/css/**/*.css')
 	.pipe(cssnano())
-	.pipe(gulp.dest('./release/css')); // Переносим css в продакшн
+	.pipe(gulp.dest('./dist/css')); // Переносим css в продакшн
 	
 	gulp.src('./app/fonts/**/*')
-	.pipe(gulp.dest('./release/fonts')); // Переносим шрифты в продакшн
+	.pipe(gulp.dest('./dist/fonts')); // Переносим шрифты в продакшн
 	
 	gulp.src('./app/js/**/*')
 	.pipe(uglify())
-	.pipe(gulp.dest('./release/js')); // Переносим скрипты в продакшн
+	.pipe(gulp.dest('./dist/js')); // Переносим скрипты в продакшн
 	
 	gulp.src('./app/**/*.php')
-	.pipe(gulp.dest('./release')); // Переносим php в продакшн
+	.pipe(gulp.dest('./dist')); // Переносим php в продакшн
 	
 	gulp.src('./app/**/*.html')
-	.pipe(gulp.dest('./release')); // Переносим html в продакшн
+	.pipe(gulp.dest('./dist')); // Переносим html в продакшн
 	
 	gulp.src('./app/.htaccess')
-	.pipe(gulp.dest('./release')); // Переносим .htaccess в продакшн
+	.pipe(gulp.dest('./dist')); // Переносим .htaccess в продакшн
 	
 });
 
@@ -111,10 +111,10 @@ gulp.task('default', ['watch']);
 
 // gulp - отслеживание изменений всех файлов (watch) и browserSync
 // gulp watch - в данной сборке тоже что и gulp
-// gulp build - сборка нужных файлов готового проекта в ./release
+// gulp build - сборка нужных файлов готового проекта в ./dist
 // gulp clear - очистить кэш
-// gulp img - сжатие и перенос всех изображений в ./release
-// gulp clean - удаление папки ./release
+// gulp img - сжатие и перенос всех изображений в ./dist
+// gulp clean - удаление папки ./dist
 // gulp sass - преобразование scss в css с префиксами и файлом .map
 // gulp browser-sync - запуск browser-sync
 // gulp css-libs - минифицируем выбранный файл в папку ./app/css
