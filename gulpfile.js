@@ -77,7 +77,7 @@ gulp.task('img', function() {
 			})
 		]))
 		.on('error', console.log)
-		.pipe(gulp.dest('dist/img')); // Выгружаем на продакшен
+		.pipe(gulp.dest('./dist/img')); // Выгружаем на продакшен
 });
 
 gulp.task('build', ['clean', 'img', 'js-libs', 'sass'], function() {
